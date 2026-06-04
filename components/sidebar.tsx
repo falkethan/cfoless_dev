@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -9,7 +10,6 @@ import {
   FileText,
   Gauge,
   HeartPulse,
-  LayoutDashboard,
   Target
 } from "lucide-react";
 import clsx from "clsx";
@@ -32,13 +32,17 @@ export function Sidebar() {
     <aside className="sticky top-0 z-20 border-b border-white/10 bg-navy-950 text-white lg:h-screen lg:w-72 lg:flex-none lg:border-b-0">
       <div className="flex h-full flex-col">
         <div className="border-b border-white/10 px-5 py-5">
-          <Link href="/books-health" className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-md bg-teal-500 text-navy-950">
-              <LayoutDashboard className="h-5 w-5" aria-hidden="true" />
-            </div>
-            <div>
-              <div className="text-lg font-semibold tracking-normal">CFOLess</div>
-              <div className="text-xs text-slate-300">Owner coaching prototype</div>
+          <Link href="/books-health" className="block">
+            <Image
+              src="/cfoless-logo-nav.png"
+              alt="CFOLess"
+              width={156}
+              height={44}
+              priority
+              className="h-9 w-auto"
+            />
+            <div className="mt-3 text-xs font-medium text-slate-300">
+              CFO-style coaching for small business owners
             </div>
           </Link>
         </div>
