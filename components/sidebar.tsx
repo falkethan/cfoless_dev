@@ -3,26 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  BookCheck,
-  Bot,
-  ClipboardList,
-  FileText,
-  Gauge,
-  HeartPulse,
-  Target
-} from "lucide-react";
+import { BookCheck, Bot, FileText, Gauge, HeartPulse, Target } from "lucide-react";
 import clsx from "clsx";
 import { company } from "@/lib/data";
 
 const navItems = [
-  { label: "Goals", href: "/onboarding", icon: Target },
+  { label: "My Focus", href: "/owner-home", icon: HeartPulse },
   { label: "Can I Trust My Books?", href: "/books-health", icon: BookCheck },
-  { label: "What To Focus On", href: "/owner-home", icon: HeartPulse },
   { label: "Cash Health", href: "/score/cash-health", icon: Gauge },
   { label: "Ask CFOLess", href: "/ask", icon: Bot },
-  { label: "Monthly Coaching Plan", href: "/memo", icon: FileText },
-  { label: "Advisor View", href: "/advisor-view", icon: ClipboardList }
+  { label: "Monthly Plan", href: "/memo", icon: FileText },
+  { label: "Goals", href: "/onboarding", icon: Target }
 ];
 
 export function Sidebar() {
@@ -57,10 +48,10 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 className={clsx(
-                  "flex min-w-max items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition",
+                  "flex min-w-max items-center gap-3 rounded-md px-3 py-2.5 text-sm transition",
                   isActive
-                    ? "bg-white text-navy-950"
-                    : "text-slate-300 hover:bg-white/10 hover:text-white"
+                    ? "bg-teal-50 font-semibold text-slate-950 shadow-sm [&_svg]:text-teal-700"
+                    : "font-medium text-slate-400 hover:bg-white/10 hover:text-white"
                 )}
               >
                 <Icon className="h-4 w-4 flex-none" aria-hidden="true" />
