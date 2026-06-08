@@ -8,7 +8,7 @@ import clsx from "clsx";
 import { company } from "@/lib/data";
 
 const navItems = [
-  { label: "My Focus", href: "/owner-home", icon: HeartPulse },
+  { label: "Monthly Brief", href: "/owner-home", icon: HeartPulse },
   { label: "Can I Trust My Books?", href: "/books-health", icon: BookCheck },
   { label: "Cash Health", href: "/score/cash-health", icon: Gauge },
   { label: "Ask CFOLess", href: "/ask", icon: Bot },
@@ -23,7 +23,7 @@ export function Sidebar() {
     <aside className="sticky top-0 z-20 border-b border-white/10 bg-navy-950 text-white lg:h-screen lg:w-72 lg:flex-none lg:border-b-0">
       <div className="flex h-full flex-col">
         <div className="border-b border-white/10 px-5 py-5">
-          <Link href="/books-health" className="block">
+          <Link href="/owner-home" className="block">
             <Image
               src="/cfoless-logo-nav.png"
               alt="CFOLess"
@@ -33,7 +33,7 @@ export function Sidebar() {
               className="h-9 w-auto"
             />
             <div className="mt-3 text-xs font-medium text-slate-300">
-              CFO-style coaching for small business owners
+              Monthly financial clarity, minus the accounting fog.
             </div>
           </Link>
         </div>
@@ -62,11 +62,18 @@ export function Sidebar() {
         </nav>
 
         <div className="mt-auto hidden border-t border-white/10 p-5 lg:block">
-          <div className="rounded-md bg-white/8 p-4">
-            <div className="text-xs uppercase tracking-wider text-slate-400">Fake company</div>
-            <div className="mt-2 text-sm font-semibold">{company.name}</div>
-            <div className="mt-1 text-xs text-slate-300">
-              {company.revenue} revenue - {company.system}
+          <div className="rounded-md border border-white/10 bg-white/5 p-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-teal-500 text-sm font-semibold text-white">
+                MR
+              </div>
+              <div>
+                <div className="text-sm font-semibold">Mike Reynolds</div>
+                <div className="text-xs text-slate-400">Owner</div>
+              </div>
+            </div>
+            <div className="mt-3 border-t border-white/10 pt-3 text-xs leading-5 text-slate-300">
+              {company.name}
             </div>
           </div>
         </div>
