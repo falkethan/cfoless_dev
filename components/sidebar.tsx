@@ -20,9 +20,9 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="sticky top-0 z-20 border-b border-white/10 bg-navy-950 text-white lg:h-screen lg:w-72 lg:flex-none lg:border-b-0">
+    <aside className="sticky top-0 z-20 border-b border-white/10 bg-navy-950 text-white shadow-[8px_0_30px_rgba(15,23,42,0.05)] lg:h-screen lg:w-72 lg:flex-none lg:border-b-0">
       <div className="flex h-full flex-col">
-        <div className="border-b border-white/10 px-5 py-5">
+        <div className="border-b border-white/10 px-5 py-6 lg:px-6 lg:py-7">
           <Link href="/owner-home" className="block">
             <Image
               src="/cfoless-logo-nav.png"
@@ -32,13 +32,13 @@ export function Sidebar() {
               priority
               className="h-9 w-auto"
             />
-            <div className="mt-3 text-xs font-medium text-slate-300">
+            <div className="mt-4 max-w-48 text-xs font-medium leading-5 text-slate-400">
               Monthly financial clarity, minus the accounting fog.
             </div>
           </Link>
         </div>
 
-        <nav className="no-scrollbar flex max-w-full gap-2 overflow-x-auto px-3 py-3 lg:flex-col lg:overflow-x-visible lg:px-4 lg:py-5">
+        <nav className="no-scrollbar flex max-w-full gap-2 overflow-x-auto px-3 py-3 lg:flex-col lg:gap-1.5 lg:overflow-x-visible lg:px-4 lg:py-6">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
@@ -48,10 +48,10 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 className={clsx(
-                  "flex min-w-max items-center gap-3 rounded-md px-3 py-2.5 text-sm transition",
+                  "relative flex min-w-max items-center gap-3 rounded-md px-3 py-3 text-sm transition",
                   isActive
-                    ? "bg-teal-50 font-semibold text-slate-950 shadow-sm [&_svg]:text-teal-700"
-                    : "font-medium text-slate-400 hover:bg-white/10 hover:text-white"
+                    ? "bg-white/10 font-semibold text-white shadow-sm before:absolute before:bottom-2 before:left-0 before:top-2 before:w-0.5 before:rounded-full before:bg-teal-400 [&_svg]:text-teal-300"
+                    : "font-medium text-slate-400 hover:bg-white/[0.07] hover:text-white"
                 )}
               >
                 <Icon className="h-4 w-4 flex-none" aria-hidden="true" />
@@ -62,7 +62,7 @@ export function Sidebar() {
         </nav>
 
         <div className="mt-auto hidden border-t border-white/10 p-5 lg:block">
-          <div className="rounded-md border border-white/10 bg-white/5 p-4">
+          <div className="rounded-md border border-white/10 bg-white/[0.04] p-4 shadow-inner">
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-teal-500 text-sm font-semibold text-white">
                 MR

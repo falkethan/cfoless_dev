@@ -219,7 +219,7 @@ export default function OwnerHomePage() {
 
   return (
     <div className="mx-auto max-w-7xl pb-14">
-      <header className="mb-8 px-1 pt-1 md:mb-10">
+      <header className="mb-9 border-b border-slate-200/70 px-1 pb-7 pt-1 md:mb-10">
         <div className="flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">
           <div>
             <p className="mb-3 text-sm font-medium text-slate-500">
@@ -237,7 +237,7 @@ export default function OwnerHomePage() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link
               href="/ask"
               className="inline-flex h-11 w-full items-center gap-3 rounded-md border border-slate-200 bg-white px-4 text-sm font-medium text-slate-500 shadow-sm transition hover:border-teal-300 hover:text-teal-800 sm:w-[290px]"
@@ -276,7 +276,7 @@ export default function OwnerHomePage() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-center rounded-md border border-white/10 bg-white/[0.07] px-7 py-11 text-center shadow-inner xl:py-12">
+          <div className="flex flex-col items-center justify-center rounded-md border border-white/[0.07] bg-white/[0.045] px-7 py-11 text-center xl:py-12">
             <div className="text-xs font-semibold uppercase tracking-wider text-amber-300">Main Focus Score</div>
             <div className="mt-7"><ScoreRing score={51} size="xlarge" dark /></div>
             <div className="mt-7 text-xl font-semibold">Cash Conversion</div>
@@ -285,6 +285,12 @@ export default function OwnerHomePage() {
             </span>
             <p className="mt-5 max-w-48 text-sm leading-6 text-slate-300">Growth is not fully reaching our bank account yet.</p>
             <div className="mt-5 border-t border-white/10 pt-4 text-xs font-semibold text-slate-400">Target: 80+</div>
+            <div className="mt-4 grid w-full grid-cols-4 gap-1 text-[8px] font-semibold uppercase tracking-wide text-slate-500">
+              <span className="border-t border-teal-400/70 pt-2">Strong</span>
+              <span className="border-t border-yellow-500/70 pt-2">Watch</span>
+              <span className="border-t border-amber-500/70 pt-2">Attention</span>
+              <span className="border-t border-rose-500/70 pt-2">Critical</span>
+            </div>
           </div>
 
           <div className="rounded-md bg-navy-950/55 px-7 py-10 md:px-8 md:py-12">
@@ -309,7 +315,7 @@ export default function OwnerHomePage() {
       </section>
 
       <section className="mb-16 grid gap-4 xl:grid-cols-[minmax(0,1fr)_330px]">
-        <div className="rounded-md bg-white p-6 shadow-soft md:p-7">
+        <div className="rounded-md border border-slate-200/80 bg-white p-6 shadow-soft md:p-8">
           <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">This month&apos;s decision</div>
           <h2 className="mt-3 max-w-4xl font-serif text-2xl font-semibold leading-9 text-slate-950">
             We should pause hiring or large purchases until we review overdue A/R, inventory timing, and payroll growth.
@@ -321,7 +327,7 @@ export default function OwnerHomePage() {
               { label: "Overdue A/R", value: "↑ $17k", meaning: "More unpaid invoices", tone: "text-amber-700" },
               { label: "Books Status", value: "Caution", meaning: "Direction, not every decision", tone: "text-amber-700" }
             ].map((signal) => (
-              <div key={signal.label} className="rounded-md bg-slate-50 px-4 py-3">
+              <div key={signal.label} className="rounded-md border border-slate-100 bg-slate-50/70 px-4 py-3.5">
                 <div className="text-xs font-semibold text-slate-500">{signal.label}</div>
                 <div className={`mt-1 text-lg font-semibold ${signal.tone}`}>{signal.value}</div>
                 <div className="mt-1 text-xs leading-5 text-slate-500">{signal.meaning}</div>
@@ -351,7 +357,7 @@ export default function OwnerHomePage() {
         </aside>
       </section>
 
-      <section className="mb-16 rounded-md bg-white px-5 py-6 shadow-sm md:px-7">
+      <section className="mb-16 rounded-md border border-slate-200/80 bg-white px-5 py-7 shadow-sm md:px-8 md:py-8">
         <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
           <div>
             <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">Our cash story</div>
@@ -368,7 +374,7 @@ export default function OwnerHomePage() {
           ].map(([label, value, tone], index) => (
             <div key={label} className="flex min-w-max flex-1 items-center gap-2">
               {index > 0 && <ChevronRight className="h-4 w-4 flex-none text-slate-300" aria-hidden="true" />}
-              <div className="min-w-32 flex-1 rounded-md bg-slate-50 px-4 py-3 text-center">
+              <div className="min-w-32 flex-1 rounded-md border border-slate-100 bg-slate-50/60 px-4 py-4 text-center shadow-[0_1px_2px_rgba(15,23,42,0.03)]">
                 <div className="text-xs font-semibold text-slate-500">{label}</div>
                 <div className={`mt-1 text-lg font-semibold ${tone}`}>{value}</div>
               </div>
@@ -440,8 +446,8 @@ export default function OwnerHomePage() {
       <section className="mb-16">
         <div className="mb-5 flex flex-col gap-4 px-1 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">Evidence</div>
-            <h2 className="mt-2 font-serif text-3xl font-semibold text-slate-950">Why we&apos;re flagging cash</h2>
+            <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">Why cash needs attention</div>
+            <h2 className="mt-2 font-serif text-3xl font-semibold text-slate-950">Why cash needs attention</h2>
             <p className="mt-2 text-sm text-slate-500">Three signals behind the cash warning.</p>
           </div>
           <ScoreBenchmark />
@@ -451,8 +457,8 @@ export default function OwnerHomePage() {
             const DirectionIcon = signal.movement.startsWith("up") ? ArrowUp : ArrowDown;
             const scoreBand = getScoreBand(signal.score);
             return (
-              <article key={signal.name} className="rounded-md bg-white p-5 shadow-sm">
-                <div className="flex items-start gap-4">
+              <article key={signal.name} className="flex min-h-56 flex-col rounded-md border border-slate-200/70 bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.04)] transition hover:border-slate-300 hover:shadow-soft">
+                <div className="flex items-start gap-5">
                   <ScoreRing score={signal.score} />
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center justify-between gap-2">
@@ -467,8 +473,8 @@ export default function OwnerHomePage() {
                     </span>
                   </div>
                 </div>
-                <p className="mt-3 text-base font-medium leading-7 text-slate-800">{signal.driver}</p>
-                <div className="mt-4 flex items-center justify-between gap-3 text-xs font-medium text-slate-400">
+                <p className="mt-5 text-base font-medium leading-7 text-slate-800">{signal.driver}</p>
+                <div className="mt-auto flex items-center justify-between gap-3 border-t border-slate-100 pt-5 text-xs font-medium text-slate-400">
                   <span>{signal.confidence}</span>
                   <span>Target: 80+</span>
                 </div>
@@ -478,74 +484,11 @@ export default function OwnerHomePage() {
         </div>
       </section>
 
-      <section className="mb-16 overflow-hidden rounded-md bg-white shadow-soft">
-        <div className="border-b border-slate-100 px-6 py-7 md:px-8">
-          <div className="flex items-start gap-4">
-            <div className="flex h-11 w-11 flex-none items-center justify-center rounded-md bg-teal-50 text-teal-700">
-              <ShieldCheck className="h-6 w-6" aria-hidden="true" />
-            </div>
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">Trust checkpoint</div>
-              <h2 className="mt-2 font-serif text-3xl font-semibold text-slate-950">Can these books support decisions?</h2>
-              <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
-                These are the decisions our current numbers can support. This is not a grade on our accountant.
-              </p>
-              <p className="mt-2 max-w-3xl text-xs leading-5 text-slate-400">
-                We provide decision support based on current financial data. This is not tax, legal, or accounting advice.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="grid lg:grid-cols-2">
-          <DecisionList title="Safe to use" items={safeDecisions} safe />
-          <DecisionList title="Use caution" items={cautionDecisions} />
-        </div>
-      </section>
+      <ActionPlan />
 
-      <section className="mb-16">
-        <div className="mb-6 px-1">
-          <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">Action plan</div>
-          <h2 className="mt-2 font-serif text-3xl font-semibold text-slate-950">What we recommend reviewing next</h2>
-          <p className="mt-2 text-sm text-slate-500">Three checks before we hire or make a large purchase.</p>
-        </div>
-        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="bg-teal-50/70 p-6 md:p-8">
-            <Gauge className="h-6 w-6 text-teal-700" aria-hidden="true" />
-            <h3 className="mt-5 font-serif text-2xl font-semibold text-slate-950">What&apos;s blocking our cash?</h3>
-            <p className="mt-3 text-base font-medium leading-7 text-slate-700">A/R aging, inventory timing, and payroll growth.</p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {["A/R aging", "Inventory days", "Payroll growth", "COGS cleanup"].map((item) => (
-                <span key={item} className="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm">
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="space-y-1">
-            {reviewActions.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <article key={item.label} className="flex gap-4 border-b border-slate-200 px-1 py-5 first:pt-0">
-                  <div className="flex h-10 w-10 flex-none items-center justify-center rounded-md bg-white text-teal-700 shadow-sm">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <h3 className="font-semibold text-slate-950">{index + 1}. {item.label}</h3>
-                      <span className="text-xs font-semibold text-teal-700">{item.status}</span>
-                    </div>
-                    <p className="mt-2 text-sm leading-6 text-slate-600">{item.text}</p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="mb-16 rounded-md bg-white p-6 shadow-soft md:p-8">
+      <section className="mb-16 overflow-hidden rounded-md border border-slate-200/80 bg-white shadow-soft">
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-          <div>
+          <div className="px-6 pt-7 md:px-9 md:pt-9">
             <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">Bookkeeper agenda</div>
             <h2 className="mt-2 font-serif text-3xl font-semibold text-slate-950">
               What we should ask our bookkeeper this month
@@ -560,15 +503,15 @@ export default function OwnerHomePage() {
               setCopied(true);
               window.setTimeout(copyQuestions, 0);
             }}
-            className="inline-flex w-fit items-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-teal-300 hover:bg-teal-50"
+            className="mr-6 mt-7 inline-flex w-fit items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-teal-300 hover:bg-teal-50 md:mr-9 md:mt-9"
           >
             {copied ? <Check className="h-4 w-4 text-teal-600" aria-hidden="true" /> : <ClipboardCopy className="h-4 w-4" aria-hidden="true" />}
             {copied ? "Copied" : "Copy questions"}
           </button>
         </div>
-        <ol className="mt-8 divide-y divide-slate-100">
+        <ol className="mt-8 grid gap-x-10 border-t border-slate-100 bg-slate-50/35 px-6 pb-4 pt-2 md:px-9 lg:grid-cols-2">
           {bookkeeperQuestions.map((item, index) => (
-            <li key={item.question} className="py-5 first:pt-0 last:pb-0">
+            <li key={item.question} className="border-b border-slate-200/70 py-6">
               <div className="flex gap-4">
                 <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-teal-50 text-sm font-semibold text-teal-700">
                   {index + 1}
@@ -585,18 +528,20 @@ export default function OwnerHomePage() {
         </ol>
       </section>
 
-      <section className="rounded-md bg-navy-950 p-7 text-white shadow-soft md:p-9">
+      <TrustCheckpoint />
+
+      <section className="rounded-md border border-teal-300/10 bg-[linear-gradient(135deg,#07172f_0%,#09283a_100%)] p-7 text-white shadow-soft md:p-10">
         <div className="flex gap-4">
           <div className="flex h-11 w-11 flex-none items-center justify-center rounded-md bg-teal-500 text-white">
             <Flag className="h-5 w-5" aria-hidden="true" />
           </div>
           <div className="flex-1">
-            <div className="text-sm font-semibold uppercase tracking-wider text-teal-300">June plan</div>
+            <div className="text-sm font-semibold uppercase tracking-wider text-teal-300">Next Month&apos;s Plan</div>
             <h2 className="mt-2 font-serif text-3xl font-semibold text-white">Get sales to turn into cash.</h2>
             <p className="mt-3 text-sm leading-6 text-slate-300">
               We should watch overdue invoices, inventory days, payroll growth, and COGS cleanup.
             </p>
-            <ul className="mt-6 grid gap-3 md:grid-cols-3">
+            <ul className="mt-7 grid gap-3 border-t border-white/10 pt-6 md:grid-cols-3">
               {["We should review A/R aging", "We should recheck inventory days", "We should compare payroll growth to revenue"].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-sm font-semibold text-slate-100">
                   <CheckCircle2 className="h-5 w-5 flex-none text-teal-300" aria-hidden="true" />
@@ -607,7 +552,87 @@ export default function OwnerHomePage() {
           </div>
         </div>
       </section>
+
+      <footer className="py-12 text-center">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-slate-400">CFOLess Private Briefing</div>
+        <p className="mt-3 text-xs text-slate-400">Buckeye HVAC &amp; Plumbing &middot; May 2025</p>
+      </footer>
     </div>
+  );
+}
+
+function ActionPlan() {
+  return (
+    <section className="mb-16">
+      <div className="mb-6 px-1">
+        <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">Action plan</div>
+        <h2 className="mt-2 font-serif text-3xl font-semibold text-slate-950">What we recommend reviewing next</h2>
+        <p className="mt-2 text-sm text-slate-500">Three checks before we hire or make a large purchase.</p>
+      </div>
+      <div className="overflow-hidden rounded-md border border-slate-200/80 bg-white shadow-soft lg:grid lg:grid-cols-[0.8fr_1.2fr]">
+        <div className="bg-teal-50/60 p-7 md:p-9">
+          <div className="flex h-11 w-11 items-center justify-center rounded-full border border-teal-100 bg-white text-teal-700 shadow-sm">
+            <Gauge className="h-5 w-5" aria-hidden="true" />
+          </div>
+          <h3 className="mt-6 font-serif text-2xl font-semibold text-slate-950">What&apos;s blocking our cash?</h3>
+          <p className="mt-3 text-base font-medium leading-7 text-slate-700">A/R aging, inventory timing, and payroll growth.</p>
+          <div className="mt-7 flex flex-wrap gap-2">
+            {["A/R aging", "Inventory days", "Payroll growth", "COGS cleanup"].map((item) => (
+              <span key={item} className="rounded-full border border-teal-100 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="divide-y divide-slate-100 border-t border-slate-100 px-6 py-3 md:px-8 lg:border-l lg:border-t-0">
+          {reviewActions.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <article key={item.label} className="flex gap-4 py-5">
+                <div className="flex h-10 w-10 flex-none items-center justify-center rounded-md bg-slate-50 text-teal-700">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h3 className="font-semibold text-slate-950">{index + 1}. {item.label}</h3>
+                    <span className="text-[10px] font-semibold uppercase tracking-wide text-teal-700">{item.status}</span>
+                  </div>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{item.text}</p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TrustCheckpoint() {
+  return (
+    <section className="mb-16 overflow-hidden rounded-md border border-slate-200/80 bg-white shadow-soft">
+      <div className="border-b border-slate-100 px-6 py-7 md:px-8">
+        <div className="flex items-start gap-4">
+          <div className="flex h-11 w-11 flex-none items-center justify-center rounded-md bg-teal-50 text-teal-700">
+            <ShieldCheck className="h-6 w-6" aria-hidden="true" />
+          </div>
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">Trust checkpoint</div>
+            <h2 className="mt-2 font-serif text-3xl font-semibold text-slate-950">Can these books support decisions?</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
+              These are the decisions our current numbers can support. This is not a grade on our accountant.
+            </p>
+            <p className="mt-2 max-w-3xl text-xs leading-5 text-slate-400">
+              We provide decision support based on current financial data. This is not tax, legal, or accounting advice.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="grid lg:grid-cols-2">
+        <DecisionList title="Safe to use" items={safeDecisions} safe />
+        <DecisionList title="Use caution" items={cautionDecisions} />
+      </div>
+    </section>
   );
 }
 
