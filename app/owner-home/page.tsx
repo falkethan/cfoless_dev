@@ -30,7 +30,7 @@ const chapterLabels: Record<BriefTab, string> = {
   Trust: "Can we trust these numbers?",
   Cash: "Why is cash tight?",
   Profit: "Are we keeping enough profit?",
-  "Sell-ready": "Would a buyer trust this?",
+  "Sell-ready": "Could we sell this business right now?",
   Plan: "What should we do next month?"
 };
 
@@ -47,39 +47,38 @@ const briefTabs: Record<
   { answer: string; metrics: Array<{ label: string; value: string }>; why: string; ask: string }
 > = {
   Trust: {
-    answer: "We can trust the broad direction, but not every decision yet.",
+    answer: "Books are usable with caution.",
     metrics: [
-      { label: "Books Status", value: "Usable with caution" },
-      { label: "Safe areas", value: "3" },
-      { label: "Caution areas", value: "4" }
+      { label: "Broad direction", value: "Usable" },
+      { label: "Major decisions", value: "Confirm first" }
     ],
-    why: "We know which numbers are safe to use now.",
-    ask: "We should confirm COGS, payroll, and A/R aging."
+    why: "We can trust the broad direction.",
+    ask: "We should confirm a few categories before major decisions."
   },
   Cash: {
-    answer: "Cash squeeze drivers: overdue invoices, inventory timing, and payroll growth.",
+    answer: "Cash is getting stuck before it reaches the bank.",
     metrics: [
       { label: "Cash change", value: "-$28.4k" },
-      { label: "A/R over 30 days", value: "$35k" },
-      { label: "Inventory days", value: "61" }
+      { label: "Unpaid invoices", value: "$35k" },
+      { label: "Inventory timing", value: "61 days" }
     ],
     why: "Growth only helps when it turns into cash.",
     ask: "We should check collections, inventory timing, and payroll."
   },
   Profit: {
-    answer: "Revenue improved, but payroll grew faster than sales.",
+    answer: "Sales improved, but payroll grew faster than sales.",
     metrics: [
-      { label: "Revenue growth", value: "+8%" },
+      { label: "Sales growth", value: "+8%" },
       { label: "Payroll growth", value: "+14%" },
-      { label: "Profit Health", value: "67" }
+      { label: "Profitability", value: "67" }
     ],
     why: "We should understand labor productivity before adding headcount.",
     ask: "We should confirm payroll classification and output."
   },
   "Sell-ready": {
-    answer: "Our books are improving, but a buyer would still question the margins.",
+    answer: "Our books are improving, but a buyer would still question our profit numbers.",
     metrics: [
-      { label: "Sell-Ready Score", value: "54" },
+      { label: "Business Value Readiness", value: "54" },
       { label: "Monthly movement", value: "+3" },
       { label: "Books Status", value: "Caution" }
     ],
@@ -100,28 +99,28 @@ const briefTabs: Record<
 
 const reviewActions = [
   {
-    label: "Confirm A/R aging",
+    label: "Confirm unpaid invoices",
     text: "We should make sure overdue invoices are real and current.",
     status: "Ask bookkeeper",
     icon: ReceiptText
   },
   {
-    label: "Inventory timing",
+    label: "Review inventory timing",
     text: "We should check whether the next large purchase can wait.",
     status: "Review this week",
     icon: PackageCheck
   },
   {
     label: "Compare payroll growth",
-    text: "We should compare payroll growth to revenue.",
+    text: "We should compare payroll growth to sales.",
     status: "Watch next month",
     icon: Users
   }
 ];
 
 const safeDecisions = [
-  { label: "Revenue trend", reason: "Revenue categories are consistent enough for broad direction." },
-  { label: "High-level cash trend", reason: "Cash balances support a directional monthly review." },
+  { label: "Sales trend", reason: "Sales categories are consistent enough for broad direction." },
+  { label: "Cash trend", reason: "Cash balances support a directional monthly review." },
   { label: "Expense review", reason: "Major operating expenses can be reviewed." }
 ];
 
@@ -130,68 +129,65 @@ const cautionMeaning =
 
 const cautionDecisions = [
   {
-    label: "Gross margin",
-    reason: "COGS categories changed across months.",
-    action: "We should confirm the underlying categories before using margin for major decisions.",
+    label: "What we make per job",
+    reason: "Direct job cost categories changed across months.",
+    action: "We should confirm direct job cost categories before using profit numbers for major decisions.",
     cta: "Confirm categories"
   },
   {
-    label: "Job profitability",
+    label: "Which jobs actually make money",
     reason: "Labor and materials may not be classified consistently.",
     action: "We should confirm labor and material categories before comparing jobs.",
     cta: "Ask bookkeeper"
   },
   {
-    label: "Pricing decisions",
-    reason: "Margin data is not clean enough yet.",
-    action: "We should review margin categories before changing prices.",
+    label: "Whether prices cover costs",
+    reason: "Profit data is not clean enough yet.",
+    action: "We should review direct job cost categories before changing prices.",
     cta: "Review this week"
   },
   {
-    label: "Sell-ready analysis",
+    label: "How a buyer would value the business",
     reason: "Books need cleanup before buyer-facing review.",
-    action: "We should clean up COGS and payroll categories before buyer review.",
+    action: "We should clean up direct job cost and payroll categories before buyer review.",
     cta: "Clean up first"
   }
 ];
 
 const scoreSignals = [
   {
-    name: "Cash Conversion",
+    name: "Cash Flow Health",
     score: 51,
     movement: "down 15",
-    driver: "Overdue invoices and inventory timing are tying up cash.",
-    confidence: "High confidence"
+    driver: "Unpaid invoices and inventory timing are tying up cash."
   },
   {
-    name: "Profit Health",
+    name: "Profitability",
     score: 67,
     movement: "down 6",
-    driver: "Payroll is growing faster than sales.",
-    confidence: "Medium confidence"
+    driver: "Payroll is growing faster than sales this month."
   },
   {
-    name: "Sell-Ready Score",
+    name: "Business Value Readiness",
     score: 54,
     movement: "up 3",
-    driver: "Books are usable, but margin analysis needs caution.",
-    confidence: "Medium confidence"
+    driver: "Books are usable, but profit analysis needs caution."
   }
 ];
 
 const bookkeeperQuestions = [
-  { question: "Is A/R aging current as of month-end?", why: "Confirms whether cash collection risk is real." },
+  { question: "Are our unpaid invoices current as of month-end?", why: "Confirms whether cash collection risk is real." },
   {
-    question: "Are inventory purchases categorized consistently?",
-    why: "Protects cash conversion and gross margin analysis."
+    question: "Are inventory and parts purchases categorized consistently?",
+    why: "Protects cash flow and profit analysis."
   },
   {
     question: "Are payroll costs classified correctly?",
     why: "Protects hiring readiness and labor profitability."
   },
   {
-    question: "Are COGS categories consistent month to month?",
-    why: "Makes margin and pricing conclusions more reliable."
+    question: "Are direct job cost categories consistent month to month?",
+    why: "Makes profit and pricing conclusions more reliable."
   }
 ];
 
@@ -243,21 +239,21 @@ export default function OwnerHomePage() {
 
   return (
     <div className="mx-auto min-w-0 max-w-[1340px] overflow-x-hidden pb-14">
-      <header className="mb-9 border-b border-slate-200/70 px-1 pb-7 pt-1 md:mb-10">
+      <header className="mb-6 border-b border-slate-200/70 px-1 pb-5 pt-0 md:mb-10 md:pb-7 md:pt-1">
         <div className="flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">
           <div>
-            <p className="mb-3 text-sm font-medium text-slate-500">
+            <p className="mb-3 hidden text-sm font-medium text-slate-500 sm:block">
               {greeting}, Mike. Here&apos;s our May business brief.
             </p>
             <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-teal-700">
               <CalendarDays className="h-4 w-4" aria-hidden="true" />
               May 2025 Business Brief
             </div>
-            <h1 className="mt-3 font-serif text-3xl font-semibold text-slate-950 md:text-4xl">
+            <h1 className="mt-3 font-serif text-2xl font-semibold text-slate-950 md:text-4xl">
               Buckeye HVAC &amp; Plumbing
             </h1>
-            <p className="mt-2 text-sm text-slate-500">
-              $2.4M revenue &middot; QuickBooks &middot; Last updated May 31, 2025
+            <p className="mt-2 text-xs leading-5 text-slate-500 md:text-sm">
+              $2.4M sales &middot; QuickBooks &middot; Last updated May 31, 2025
             </p>
           </div>
 
@@ -271,7 +267,7 @@ export default function OwnerHomePage() {
             </Link>
             <button
               type="button"
-              className="inline-flex items-center justify-center gap-2 rounded-md bg-navy-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-900"
+              className="hidden items-center justify-center gap-2 rounded-md bg-navy-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-900 sm:inline-flex"
             >
               <Download className="h-4 w-4" aria-hidden="true" />
               Export brief
@@ -280,46 +276,49 @@ export default function OwnerHomePage() {
         </div>
       </header>
 
-      <section className="mb-8 text-white">
+      <section className="mb-5 text-white">
         <div className="grid gap-2 xl:grid-cols-[minmax(0,1.3fr)_310px_minmax(320px,0.72fr)]">
-          <div className="rounded-md bg-[radial-gradient(circle_at_12%_10%,rgba(13,148,136,0.24),transparent_38%),linear-gradient(135deg,#082f35_0%,#07172f_72%)] px-7 py-11 shadow-soft md:px-10 md:py-14 xl:px-12 xl:py-16">
+          <div className="rounded-md bg-[radial-gradient(circle_at_12%_10%,rgba(13,148,136,0.24),transparent_38%),linear-gradient(135deg,#082f35_0%,#07172f_72%)] px-5 py-7 shadow-soft md:px-10 md:py-14 xl:px-12 xl:py-16">
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-teal-200">
               <Sparkles className="h-4 w-4" aria-hidden="true" />
               Bottom line
             </div>
-            <h2 className="mt-6 max-w-3xl font-serif text-4xl font-semibold leading-[1.08] md:text-5xl">
+            <h2 className="mt-5 max-w-3xl font-serif text-3xl font-semibold leading-[1.12] md:mt-6 md:text-5xl md:leading-[1.08]">
               Mike, sales are up — but cash is getting squeezed.
             </h2>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-slate-200 md:text-lg md:leading-8">
-              Cash is down $28.4k even though revenue is up 8%. We should review A/R, inventory timing,
+            <p className="mt-5 max-w-2xl text-[15px] leading-7 text-slate-200 md:mt-6 md:text-lg md:leading-8">
+              Cash is down $28.4k even though sales are up 8%. We should review unpaid invoices, inventory timing,
               and payroll before we hire or make another large purchase.
             </p>
-            <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-300">
+            <div className="mt-7 flex flex-wrap gap-x-5 gap-y-3 text-xs text-slate-300 md:mt-9 md:gap-x-6 md:text-sm">
               <span className="border-l-2 border-teal-400 pl-3">Books usable with caution</span>
               <span className="border-l-2 border-teal-400 pl-3">Next review: June 5</span>
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-center rounded-md bg-[#142b43] px-8 py-12 text-center shadow-soft xl:py-14">
-            <div className="text-xs font-semibold uppercase tracking-wider text-amber-300">Main Focus Score</div>
+          <div className="lg:hidden">
+            <ScoreSection mobile />
+          </div>
+
+          <div className="hidden flex-col items-center justify-center rounded-md bg-[#142b43] px-8 py-12 text-center shadow-soft lg:flex xl:py-14">
+            <div className="text-xs font-semibold uppercase tracking-wider text-amber-300">This Month&apos;s #1 Priority</div>
             <div className="mt-7"><ScoreRing score={51} size="xlarge" dark /></div>
-            <div className="mt-7 text-xl font-semibold">Cash Conversion</div>
+            <div className="mt-7 text-xl font-semibold" title="Cash conversion: how quickly sales turn into real cash in the bank.">Cash Flow Health</div>
             <span className="mt-3 rounded-full border border-amber-300/15 bg-amber-300/15 px-3 py-1 text-xs font-semibold text-amber-200">
               {getScoreBand(51).label}
             </span>
             <p className="mt-5 max-w-52 text-[15px] leading-6 text-slate-300">Growth is not fully reaching our bank account yet.</p>
-            <div className="mt-6 border-t border-white/10 pt-4 text-sm font-semibold text-slate-400">Target: 80+</div>
           </div>
 
-          <div className="rounded-md bg-navy-950 px-8 py-11 shadow-soft md:px-9 md:py-12 xl:py-14">
+          <div className="rounded-md bg-navy-950 px-5 py-7 shadow-soft md:px-9 md:py-12 xl:py-14">
             <div className="text-xs font-semibold uppercase tracking-wider text-teal-200">What we should do next</div>
             <ol className="mt-6 divide-y divide-white/10">
               {[
-                ["Review overdue invoices", "Confirm our A/R aging is current."],
+                ["Review unpaid invoices", "Confirm our unpaid invoice list is current."],
                 ["Check inventory timing", "See whether the next order can wait."],
-                ["Review payroll before hiring", "Compare payroll growth to revenue."]
+                ["Review payroll before hiring", "Compare payroll growth to sales."]
               ].map(([title, note], index) => (
-                <li key={title} className="flex gap-4 py-6 first:pt-0 last:pb-0">
+                <li key={title} className="flex gap-4 py-4 first:pt-0 last:pb-0 md:py-6">
                   <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full border border-teal-300/20 bg-teal-500/90 text-xs font-semibold text-white">{index + 1}</span>
                   <div>
                     <div className="font-semibold leading-6 text-white">{title}</div>
@@ -332,22 +331,26 @@ export default function OwnerHomePage() {
         </div>
       </section>
 
+      <div className="hidden lg:block">
+        <ScoreSection />
+      </div>
+
       <section className="mb-16 grid gap-4 xl:grid-cols-[minmax(0,1fr)_330px]">
-        <div className="rounded-md border border-slate-200/80 bg-white p-7 shadow-soft md:p-9">
+        <div className="rounded-md border border-slate-200/70 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.045)] md:p-9">
           <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">This month&apos;s decision</div>
-          <h2 className="mt-4 max-w-4xl font-serif text-2xl font-semibold leading-9 text-slate-950 md:text-3xl md:leading-10">
-            We should pause hiring or large purchases until we review overdue A/R, inventory timing, and payroll growth.
+          <h2 className="mt-3 max-w-4xl font-serif text-xl font-semibold leading-8 text-slate-950 md:mt-4 md:text-3xl md:leading-10">
+            We should pause hiring or large purchases until we review unpaid invoices, inventory timing, and payroll growth.
           </h2>
-          <div className="no-scrollbar mt-8 flex max-w-full items-center gap-2 overflow-x-auto border-t border-slate-100 pt-7">
+          <div className="mt-6 grid grid-cols-2 gap-2 border-t border-slate-100 pt-5 md:mt-8 md:flex md:max-w-full md:items-stretch md:gap-0 md:overflow-x-auto md:pt-6">
             {[
-              ["Revenue", "+8%", "text-teal-700"],
-              ["A/R", "+$17k", "text-amber-700"],
-              ["Inventory", "+19 days", "text-amber-700"],
+              ["Sales", "+8%", "text-teal-700"],
+              ["Unpaid invoices", "+$17k", "text-amber-700"],
+              ["Inventory timing", "+19 days", "text-amber-700"],
               ["Cash", "-$28.4k", "text-rose-700"]
             ].map(([label, value, tone], index) => (
-              <div key={label} className="flex min-w-max flex-1 items-center gap-2">
-                {index > 0 && <ChevronRight className="h-4 w-4 flex-none text-slate-300" aria-hidden="true" />}
-                <div className="min-w-28 flex-1 rounded-md border border-slate-100 bg-slate-50/70 px-4 py-3.5 text-center">
+              <div key={label} className="flex min-w-0 flex-1 items-center md:min-w-36">
+                {index > 0 && <ChevronRight className="mx-1 hidden h-4 w-4 flex-none text-slate-300 md:block" aria-hidden="true" />}
+                <div className="h-full flex-1 rounded-md bg-slate-50/70 px-3 py-3 text-center md:rounded-none md:bg-slate-50/55 md:px-4 md:py-3.5">
                   <div className="text-xs font-semibold text-slate-500">{label}</div>
                   <div className={`mt-1 text-lg font-semibold ${tone}`}>{value}</div>
                 </div>
@@ -392,7 +395,7 @@ export default function OwnerHomePage() {
               key={tab}
               type="button"
               onClick={() => setActiveTab(tab)}
-              className={`min-w-max border-b-2 px-6 py-5 text-sm font-semibold transition ${
+              className={`min-w-max border-b-2 px-6 py-5 text-sm font-semibold leading-5 transition lg:min-w-0 lg:flex-1 lg:px-2 ${
                 activeTab === tab
                   ? "border-teal-600 bg-white text-teal-900 shadow-[inset_0_-1px_0_#0d9488]"
                   : "border-transparent text-slate-500 hover:border-teal-200 hover:bg-white/70 hover:text-slate-900"
@@ -418,7 +421,7 @@ export default function OwnerHomePage() {
               <p className="mt-6 max-w-3xl font-serif text-2xl font-semibold leading-9 text-slate-950 md:text-3xl md:leading-10">
                 {activeBrief.answer}
               </p>
-              <div className="mt-8 grid gap-3 border-t border-slate-100 pt-6 sm:grid-cols-3">
+              <div className={`mt-8 grid gap-3 border-t border-slate-100 pt-6 ${activeBrief.metrics.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3"}`}>
                 {activeBrief.metrics.map((metric) => (
                   <div key={metric.label} className="rounded-md bg-slate-50 px-4 py-3">
                     <div className="text-xl font-semibold text-slate-900">{metric.value}</div>
@@ -426,6 +429,12 @@ export default function OwnerHomePage() {
                   </div>
                 ))}
               </div>
+              {activeTab === "Trust" && (
+                <a href="#trust-checkpoint" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-teal-700 transition hover:text-teal-900">
+                  Review trust checkpoint
+                  <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+              )}
             </div>
             <div className="grid gap-4">
               <div className="rounded-md border border-teal-100/70 bg-teal-50/70 p-6">
@@ -438,47 +447,6 @@ export default function OwnerHomePage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="mb-16">
-        <div className="mb-5 flex flex-col gap-4 px-1 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">Score Guide</div>
-            <h2 className="mt-2 font-serif text-3xl font-semibold text-slate-950">Why cash needs attention</h2>
-            <p className="mt-2 text-sm text-slate-500">Three signals behind the cash warning.</p>
-          </div>
-          <ScoreBenchmark />
-        </div>
-        <div className="grid gap-4 lg:grid-cols-3">
-          {scoreSignals.map((signal) => {
-            const DirectionIcon = signal.movement.startsWith("up") ? ArrowUp : ArrowDown;
-            const scoreBand = getScoreBand(signal.score);
-            return (
-              <article key={signal.name} className="flex min-h-60 flex-col rounded-md border border-slate-200/70 bg-white p-7 shadow-[0_8px_24px_rgba(15,23,42,0.04)] transition hover:border-slate-300 hover:shadow-soft">
-                <div className="flex items-start gap-5">
-                  <ScoreRing score={signal.score} />
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <h3 className="text-base font-semibold text-slate-900">{signal.name}</h3>
-                      <span className={`inline-flex items-center gap-1 text-xs font-semibold ${signal.movement.startsWith("up") ? "text-teal-700" : "text-rose-700"}`}>
-                        <DirectionIcon className="h-3.5 w-3.5" aria-hidden="true" />
-                        {signal.movement}
-                      </span>
-                    </div>
-                    <span className={`mt-2 inline-flex rounded-full px-2 py-1 text-xs font-semibold ${scoreBand.badgeClass}`}>
-                      {scoreBand.label}
-                    </span>
-                  </div>
-                </div>
-                <p className="mt-6 text-base font-medium leading-7 text-slate-800">{signal.driver}</p>
-                <div className="mt-auto flex items-center justify-between gap-3 border-t border-slate-100 pt-5 text-sm font-medium text-slate-400">
-                  <span>{signal.confidence}</span>
-                  <span>Target: 80+</span>
-                </div>
-              </article>
-            );
-          })}
         </div>
       </section>
 
@@ -538,10 +506,10 @@ export default function OwnerHomePage() {
             <div className="text-sm font-semibold uppercase tracking-wider text-teal-300">Next Month&apos;s Plan</div>
             <h2 className="mt-2 font-serif text-3xl font-semibold text-white">Get sales to turn into cash.</h2>
             <p className="mt-3 text-sm leading-6 text-slate-300">
-              We should watch overdue invoices, inventory days, payroll growth, and COGS cleanup.
+              We should watch unpaid invoices, inventory timing, payroll growth, and direct job costs.
             </p>
             <ul className="mt-7 grid gap-3 border-t border-white/10 pt-6 md:grid-cols-3">
-              {["We should review A/R aging", "We should recheck inventory days", "We should compare payroll growth to revenue"].map((item) => (
+              {["We should review unpaid invoices", "We should recheck inventory timing", "We should compare payroll growth to sales"].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-sm font-semibold text-slate-100">
                   <CheckCircle2 className="h-5 w-5 flex-none text-teal-300" aria-hidden="true" />
                   {item}
@@ -573,11 +541,15 @@ function ActionPlan() {
           <div className="flex h-11 w-11 items-center justify-center rounded-full border border-teal-100 bg-white text-teal-700 shadow-sm">
             <Gauge className="h-5 w-5" aria-hidden="true" />
           </div>
-          <h3 className="mt-6 font-serif text-2xl font-semibold text-slate-950">What&apos;s blocking our cash?</h3>
-          <p className="mt-3 text-base font-medium leading-7 text-slate-700">A/R aging, inventory timing, and payroll growth.</p>
+          <h3 className="mt-6 font-serif text-2xl font-semibold text-slate-950">What is keeping cash from reaching us?</h3>
+          <p className="mt-3 text-base font-medium leading-7 text-slate-700">Unpaid invoices, inventory timing, and payroll growth.</p>
           <div className="mt-7 flex flex-wrap gap-2">
-            {["A/R aging", "Inventory days", "Payroll growth", "COGS cleanup"].map((item) => (
-              <span key={item} className="rounded-full border border-teal-100 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600">
+            {["Unpaid invoices", "Inventory timing", "Payroll growth", "Direct job costs"].map((item) => (
+              <span
+                key={item}
+                title={item === "Unpaid invoices" ? "A/R" : item === "Direct job costs" ? "COGS" : undefined}
+                className="rounded-full border border-teal-100 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600"
+              >
                 {item}
               </span>
             ))}
@@ -607,9 +579,60 @@ function ActionPlan() {
   );
 }
 
+function ScoreSection({ mobile = false }: { mobile?: boolean }) {
+  return (
+    <section className={mobile ? "text-slate-900" : "mb-14"}>
+      <div className={mobile ? "grid gap-2" : "grid gap-4 lg:grid-cols-3"}>
+        {scoreSignals.map((signal) => {
+          const DirectionIcon = signal.movement.startsWith("up") ? ArrowUp : ArrowDown;
+          const scoreBand = getScoreBand(signal.score);
+          return (
+            <article
+              key={signal.name}
+              className={
+                mobile
+                  ? "flex min-h-0 flex-col rounded-md border border-slate-200/70 bg-white px-5 py-4 shadow-[0_8px_22px_rgba(15,23,42,0.05)]"
+                  : "flex min-h-52 flex-col rounded-md border border-slate-200/60 bg-white px-7 py-6 shadow-[0_12px_32px_rgba(15,23,42,0.045)] transition hover:border-slate-300/80 hover:shadow-[0_16px_38px_rgba(15,23,42,0.065)]"
+              }
+            >
+              <div className={mobile ? "flex items-center gap-4" : "flex items-center gap-5"}>
+                <ScoreRing score={signal.score} size={mobile ? "small" : "large"} />
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h3
+                      className="text-base font-semibold text-slate-900"
+                      title={
+                        signal.name === "Cash Flow Health"
+                          ? "Cash conversion: how quickly sales turn into real cash in the bank."
+                          : signal.name === "Profitability"
+                            ? "How much money we actually keep after expenses."
+                            : "Buyer readiness: how attractive the business would look to a buyer."
+                      }
+                    >
+                      {signal.name}
+                    </h3>
+                    <span className={`inline-flex items-center gap-1 text-xs font-medium ${signal.movement.startsWith("up") ? "text-teal-700" : "text-rose-700"}`}>
+                      <DirectionIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                      {signal.movement}
+                    </span>
+                  </div>
+                  <span className={`mt-2.5 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${scoreBand.badgeClass}`}>
+                    {scoreBand.label}
+                  </span>
+                </div>
+              </div>
+              <p className={mobile ? "mt-3 text-sm font-medium leading-6 text-slate-600" : "mt-6 border-t border-slate-100 pt-5 text-[15px] font-medium leading-7 text-slate-700"}>{signal.driver}</p>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 function TrustCheckpoint() {
   return (
-    <section className="mb-16 overflow-hidden rounded-md border border-slate-200/80 bg-white shadow-soft">
+    <section id="trust-checkpoint" className="mb-16 scroll-mt-8 overflow-hidden rounded-md border border-slate-200/80 bg-white shadow-soft">
       <div className="border-b border-slate-100 px-6 py-7 md:px-8">
         <div className="flex items-start gap-4">
           <div className="flex h-11 w-11 flex-none items-center justify-center rounded-md bg-teal-50 text-teal-700">
@@ -661,7 +684,18 @@ function DecisionList({
               ) : (
                 <AlertTriangle className="h-4 w-4 flex-none text-amber-500" aria-hidden="true" />
               )}
-              <span className="font-semibold text-slate-900">{item.label}</span>
+              <span
+                className="font-semibold text-slate-900"
+                title={
+                  item.label === "What we make per job"
+                    ? "Gross margin"
+                    : item.label === "How a buyer would value the business"
+                      ? "Buyer readiness"
+                      : undefined
+                }
+              >
+                {item.label}
+              </span>
               {safe && <span className="ml-auto rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700">Safe</span>}
             </div>
             {safe ? (
@@ -756,25 +790,4 @@ function getScoreBand(score: number) {
     ringColor: "#dc2626",
     badgeClass: "bg-rose-50 text-rose-700"
   };
-}
-
-function ScoreBenchmark() {
-  return (
-    <div className="rounded-md border border-slate-200 bg-white px-4 py-3 shadow-sm">
-      <div className="text-xs font-semibold text-slate-700">Score guide</div>
-      <div className="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-xs text-slate-500">
-        {[
-          ["80–100", "Strong", "bg-teal-600"],
-          ["65–79", "Watch", "bg-yellow-600"],
-          ["50–64", "Needs attention", "bg-amber-500"],
-          ["0–49", "Critical", "bg-rose-600"]
-        ].map(([range, label, color]) => (
-          <span key={range} className="inline-flex items-center gap-1.5">
-            <span className={`h-2 w-2 rounded-full ${color}`} />
-            <span><strong className="font-semibold text-slate-700">{range}</strong> {label}</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
 }

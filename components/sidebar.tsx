@@ -20,8 +20,24 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="sticky top-0 z-20 w-full max-w-full overflow-hidden border-b border-white/10 bg-[#06172d] text-white shadow-[12px_0_40px_rgba(15,23,42,0.08)] lg:h-screen lg:w-72 lg:flex-none lg:border-b-0 lg:border-r lg:border-r-white/[0.06]">
-      <div className="flex h-full flex-col">
+    <>
+      <header className="sticky top-0 z-30 flex items-center justify-between border-b border-white/10 bg-[#06172d] px-4 py-3 text-white shadow-sm lg:hidden">
+        <Link href="/owner-home" className="flex min-w-0 items-center gap-3">
+          <Image
+            src="/cfoless-logo-nav.png"
+            alt="CFOLess"
+            width={120}
+            height={34}
+            priority
+            className="h-7 w-auto flex-none"
+          />
+          <span className="h-6 w-px flex-none bg-white/10" />
+          <span className="truncate text-xs font-semibold text-slate-300">{company.name}</span>
+        </Link>
+      </header>
+
+      <aside className="sticky top-0 z-20 hidden w-full max-w-full overflow-hidden border-b border-white/10 bg-[#06172d] text-white shadow-[12px_0_40px_rgba(15,23,42,0.08)] lg:block lg:h-screen lg:w-72 lg:flex-none lg:border-b-0 lg:border-r lg:border-r-white/[0.06]">
+        <div className="flex h-full flex-col">
         <div className="border-b border-white/[0.07] px-5 py-6 lg:px-7 lg:pb-8 lg:pt-7">
           <Link href="/owner-home" className="block transition-opacity hover:opacity-95">
             <Image
@@ -90,7 +106,8 @@ export function Sidebar() {
             </div>
           </div>
         </div>
-      </div>
-    </aside>
+        </div>
+      </aside>
+    </>
   );
 }
