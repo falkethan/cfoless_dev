@@ -296,18 +296,18 @@ export default function OwnerHomePage() {
             </div>
           </div>
 
-          <div className="lg:hidden">
-            <ScoreSection mobile />
-          </div>
-
-          <div className="hidden flex-col items-center justify-center rounded-md bg-[#142b43] px-8 py-12 text-center shadow-soft lg:flex xl:py-14">
-            <div className="text-xs font-semibold uppercase tracking-wider text-amber-300">This Month&apos;s #1 Priority</div>
-            <div className="mt-7"><ScoreRing score={51} size="xlarge" dark /></div>
-            <div className="mt-7 text-xl font-semibold" title="Cash conversion: how quickly sales turn into real cash in the bank.">Cash Flow Health</div>
-            <span className="mt-3 rounded-full border border-amber-300/15 bg-amber-300/15 px-3 py-1 text-xs font-semibold text-amber-200">
-              {getScoreBand(51).label}
+          <div className="flex flex-col items-center justify-center rounded-md bg-[#142b43] px-6 py-8 text-center shadow-soft md:px-8 md:py-12 xl:py-14">
+            <div className="text-xs font-semibold uppercase tracking-wider text-teal-200">May Business Health</div>
+            <div className="mt-6 md:mt-7"><ScoreRing score={57} size="xlarge" dark /></div>
+            <span className="mt-5 rounded-full border border-amber-300/15 bg-amber-300/15 px-3 py-1 text-xs font-semibold text-amber-200 md:mt-6">
+              {getScoreBand(57).label}
             </span>
-            <p className="mt-5 max-w-52 text-[15px] leading-6 text-slate-300">Growth is not fully reaching our bank account yet.</p>
+            <div className="mt-5 w-full max-w-64 rounded-md border border-teal-300/10 bg-white/[0.055] px-4 py-3.5 text-left">
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-teal-200">Main issue</div>
+              <p className="mt-1.5 text-sm font-medium leading-6 text-slate-100">
+                Sales are up, but cash is not reaching the bank fast enough.
+              </p>
+            </div>
           </div>
 
           <div className="rounded-md bg-navy-950 px-5 py-7 shadow-soft md:px-9 md:py-12 xl:py-14">
@@ -331,9 +331,7 @@ export default function OwnerHomePage() {
         </div>
       </section>
 
-      <div className="hidden lg:block">
-        <ScoreSection />
-      </div>
+      <ScoreSection />
 
       <section className="mb-16 grid gap-4 xl:grid-cols-[minmax(0,1fr)_330px]">
         <div className="rounded-md border border-slate-200/70 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.045)] md:p-9">
@@ -579,24 +577,17 @@ function ActionPlan() {
   );
 }
 
-function ScoreSection({ mobile = false }: { mobile?: boolean }) {
+function ScoreSection() {
   return (
-    <section className={mobile ? "text-slate-900" : "mb-14"}>
-      <div className={mobile ? "grid gap-2" : "grid gap-4 lg:grid-cols-3"}>
+    <section className="mb-14">
+      <div className="grid gap-4 lg:grid-cols-3">
         {scoreSignals.map((signal) => {
           const DirectionIcon = signal.movement.startsWith("up") ? ArrowUp : ArrowDown;
           const scoreBand = getScoreBand(signal.score);
           return (
-            <article
-              key={signal.name}
-              className={
-                mobile
-                  ? "flex min-h-0 flex-col rounded-md border border-slate-200/70 bg-white px-5 py-4 shadow-[0_8px_22px_rgba(15,23,42,0.05)]"
-                  : "flex min-h-52 flex-col rounded-md border border-slate-200/60 bg-white px-7 py-6 shadow-[0_12px_32px_rgba(15,23,42,0.045)] transition hover:border-slate-300/80 hover:shadow-[0_16px_38px_rgba(15,23,42,0.065)]"
-              }
-            >
-              <div className={mobile ? "flex items-center gap-4" : "flex items-center gap-5"}>
-                <ScoreRing score={signal.score} size={mobile ? "small" : "large"} />
+            <article key={signal.name} className="flex min-h-52 flex-col rounded-md border border-slate-200/60 bg-white px-7 py-6 shadow-[0_12px_32px_rgba(15,23,42,0.045)] transition hover:border-slate-300/80 hover:shadow-[0_16px_38px_rgba(15,23,42,0.065)]">
+              <div className="flex items-center gap-5">
+                <ScoreRing score={signal.score} size="large" />
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <h3
@@ -621,7 +612,7 @@ function ScoreSection({ mobile = false }: { mobile?: boolean }) {
                   </span>
                 </div>
               </div>
-              <p className={mobile ? "mt-3 text-sm font-medium leading-6 text-slate-600" : "mt-6 border-t border-slate-100 pt-5 text-[15px] font-medium leading-7 text-slate-700"}>{signal.driver}</p>
+              <p className="mt-6 border-t border-slate-100 pt-5 text-[15px] font-medium leading-7 text-slate-700">{signal.driver}</p>
             </article>
           );
         })}
