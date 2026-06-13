@@ -80,7 +80,7 @@ const briefTabs: Record<
     metrics: [
       { label: "Business Value Readiness", value: "54" },
       { label: "Monthly movement", value: "+3" },
-      { label: "Books Status", value: "Caution" }
+      { label: "Can we trust these numbers?", value: "Use caution" }
     ],
     why: "Clean, repeatable numbers make our business easier to trust.",
     ask: "We should prioritize the cleanup a buyer would notice."
@@ -193,9 +193,10 @@ const bookkeeperQuestions = [
 
 const askPrompts = [
   "Why is our cash down if sales are up?",
+  "Which unpaid invoices are causing the issue?",
   "Can we afford to hire right now?",
   "What should we ask our bookkeeper?",
-  "What should we review before next month?"
+  "What changed most this month?"
 ];
 
 export default function OwnerHomePage() {
@@ -253,8 +254,16 @@ export default function OwnerHomePage() {
               Buckeye HVAC &amp; Plumbing
             </h1>
             <p className="mt-2 text-xs leading-5 text-slate-500 md:text-sm">
-              $2.4M sales &middot; QuickBooks &middot; Last updated May 31, 2025
+              $2.4M sales &middot; Last updated May 31, 2025
             </p>
+            <div className="mt-3 inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-teal-200/70 bg-teal-50/70 px-3 py-1.5 text-xs font-medium text-slate-600">
+              <CheckCircle2 className="h-3.5 w-3.5 text-teal-600" aria-hidden="true" />
+              <span className="font-semibold text-teal-700">QuickBooks connected</span>
+              <span className="text-slate-300">&middot;</span>
+              <span>Last synced today at 8:14 AM</span>
+              <span className="text-slate-300">&middot;</span>
+              <span>Agent review complete</span>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -276,9 +285,9 @@ export default function OwnerHomePage() {
         </div>
       </header>
 
-      <section className="mb-5 text-white">
-        <div className="grid gap-2 xl:grid-cols-[minmax(0,1.3fr)_310px_minmax(320px,0.72fr)]">
-          <div className="rounded-md bg-[radial-gradient(circle_at_12%_10%,rgba(13,148,136,0.24),transparent_38%),linear-gradient(135deg,#082f35_0%,#07172f_72%)] px-5 py-7 shadow-soft md:px-10 md:py-14 xl:px-12 xl:py-16">
+      <section className="mb-6">
+        <div className="grid gap-4 xl:grid-cols-[minmax(0,3fr)_minmax(300px,1fr)]">
+          <div className="flex min-h-[390px] flex-col rounded-md bg-[radial-gradient(circle_at_12%_10%,rgba(13,148,136,0.24),transparent_38%),linear-gradient(135deg,#082f35_0%,#07172f_72%)] px-5 py-8 text-white shadow-soft md:px-10 md:py-12 xl:px-12">
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-teal-200">
               <Sparkles className="h-4 w-4" aria-hidden="true" />
               Bottom line
@@ -286,74 +295,87 @@ export default function OwnerHomePage() {
             <h2 className="mt-5 max-w-3xl font-serif text-3xl font-semibold leading-[1.12] md:mt-6 md:text-5xl md:leading-[1.08]">
               Mike, sales are up — but cash is getting squeezed.
             </h2>
-            <p className="mt-5 max-w-2xl text-[15px] leading-7 text-slate-200 md:mt-6 md:text-lg md:leading-8">
-              Cash is down $28.4k even though sales are up 8%. We should review unpaid invoices, inventory timing,
-              and payroll before we hire or make another large purchase.
+            <p className="mt-5 max-w-2xl text-[15px] leading-7 text-slate-200 md:mt-6 md:text-base md:leading-7">
+              Unpaid invoices, inventory timing, and payroll growth are tying up cash.
             </p>
-            <div className="mt-7 flex flex-wrap gap-x-5 gap-y-3 text-xs text-slate-300 md:mt-9 md:gap-x-6 md:text-sm">
+            <a
+              href="#monthly-move"
+              className="mt-7 flex max-w-2xl items-start gap-3 rounded-md border border-teal-300/35 bg-white/[0.11] px-4 py-4 shadow-[0_12px_30px_rgba(2,12,27,0.2)] transition hover:border-teal-200/55 hover:bg-white/[0.14] md:mt-8 md:px-5"
+            >
+              <span className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-md bg-teal-400 text-navy-950">
+                <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-[10px] font-semibold uppercase tracking-wider text-teal-200">Recommended first move</span>
+                <span className="mt-1 block text-sm font-semibold leading-6 text-white md:text-base">
+                  Confirm which unpaid invoices are collectible this week before approving another large purchase.
+                </span>
+              </span>
+              <ChevronRight className="mt-2 h-4 w-4 flex-none text-teal-200" aria-hidden="true" />
+            </a>
+            <div className="mt-auto flex flex-wrap gap-x-5 gap-y-3 pt-7 text-xs text-slate-300 md:gap-x-6 md:text-sm">
               <span className="border-l-2 border-teal-400 pl-3">Books usable with caution</span>
               <span className="border-l-2 border-teal-400 pl-3">Next review: June 5</span>
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-center rounded-md bg-[#142b43] px-6 py-8 text-center shadow-soft md:px-8 md:py-12 xl:py-14">
-            <div className="text-xs font-semibold uppercase tracking-wider text-teal-200">May Business Health</div>
-            <div className="mt-6 md:mt-7"><ScoreRing score={57} size="xlarge" dark /></div>
-            <span className="mt-5 rounded-full border border-amber-300/15 bg-amber-300/15 px-3 py-1 text-xs font-semibold text-amber-200 md:mt-6">
+          <div className="flex min-h-[390px] flex-col items-center justify-center rounded-md border border-teal-100 bg-white px-7 py-9 text-center shadow-[0_18px_48px_rgba(15,23,42,0.09)] ring-1 ring-teal-50 md:px-9">
+            <div className="text-sm font-semibold uppercase tracking-wider text-teal-800">May Business Health</div>
+            <div className="mt-7 scale-110"><ScoreRing score={57} size="xlarge" /></div>
+            <span className="mt-6 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
               {getScoreBand(57).label}
             </span>
-            <div className="mt-5 w-full max-w-64 rounded-md border border-teal-300/10 bg-white/[0.055] px-4 py-3.5 text-left">
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-teal-200">Main issue</div>
-              <p className="mt-1.5 text-sm font-medium leading-6 text-slate-100">
-                Sales are up, but cash is not reaching the bank fast enough.
-              </p>
-            </div>
-          </div>
-
-          <div className="rounded-md bg-navy-950 px-5 py-7 shadow-soft md:px-9 md:py-12 xl:py-14">
-            <div className="text-xs font-semibold uppercase tracking-wider text-teal-200">What we should do next</div>
-            <ol className="mt-6 divide-y divide-white/10">
-              {[
-                ["Review unpaid invoices", "Confirm our unpaid invoice list is current."],
-                ["Check inventory timing", "See whether the next order can wait."],
-                ["Review payroll before hiring", "Compare payroll growth to sales."]
-              ].map(([title, note], index) => (
-                <li key={title} className="flex gap-4 py-4 first:pt-0 last:pb-0 md:py-6">
-                  <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full border border-teal-300/20 bg-teal-500/90 text-xs font-semibold text-white">{index + 1}</span>
-                  <div>
-                    <div className="font-semibold leading-6 text-white">{title}</div>
-                    <div className="mt-1.5 text-sm leading-6 text-slate-400">{note}</div>
-                  </div>
-                </li>
-              ))}
-            </ol>
+            <a href="#explore-brief" className="group mt-7 inline-flex items-center gap-2 rounded-md border border-teal-200 bg-teal-50 px-4 py-2.5 text-sm font-semibold text-teal-800 shadow-sm transition hover:border-teal-300 hover:bg-teal-100 hover:text-teal-950">
+              What&apos;s driving our score?
+              <ChevronRight className="h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden="true" />
+            </a>
           </div>
         </div>
       </section>
 
       <ScoreSection />
 
-      <section className="mb-16 grid gap-4 xl:grid-cols-[minmax(0,1fr)_330px]">
+      <section id="monthly-move" className="mb-16 grid scroll-mt-8 gap-4 xl:grid-cols-[minmax(0,1fr)_330px]">
         <div className="rounded-md border border-slate-200/70 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.045)] md:p-9">
-          <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">This month&apos;s decision</div>
+          <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">This month&apos;s move</div>
           <h2 className="mt-3 max-w-4xl font-serif text-xl font-semibold leading-8 text-slate-950 md:mt-4 md:text-3xl md:leading-10">
             We should pause hiring or large purchases until we review unpaid invoices, inventory timing, and payroll growth.
           </h2>
-          <div className="mt-6 grid grid-cols-2 gap-2 border-t border-slate-100 pt-5 md:mt-8 md:flex md:max-w-full md:items-stretch md:gap-0 md:overflow-x-auto md:pt-6">
+          <div className="mt-7 grid gap-3 border-t border-slate-100 pt-6 md:grid-cols-3">
+            {reviewActions.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <article key={item.label} className="flex flex-col rounded-md border border-slate-200/70 bg-slate-50/55 p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-md bg-white text-teal-700 shadow-sm">
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    <span className="text-[10px] font-semibold text-slate-400">0{index + 1}</span>
+                  </div>
+                  <h3 className="mt-4 text-sm font-semibold leading-5 text-slate-950">{item.label}</h3>
+                  <p className="mt-2 text-xs leading-5 text-slate-600">{item.text}</p>
+                  <span className="mt-4 w-fit rounded-full bg-white px-2.5 py-1 text-[10px] font-semibold text-slate-700 shadow-sm">
+                    {item.status}
+                  </span>
+                </article>
+              );
+            })}
+          </div>
+          <div className="mt-7 border-t border-slate-100 pt-5">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Why we&apos;re saying this</div>
+            <div className="mt-3 grid grid-cols-2 gap-2 md:grid-cols-4">
             {[
               ["Sales", "+8%", "text-teal-700"],
               ["Unpaid invoices", "+$17k", "text-amber-700"],
               ["Inventory timing", "+19 days", "text-amber-700"],
               ["Cash", "-$28.4k", "text-rose-700"]
-            ].map(([label, value, tone], index) => (
-              <div key={label} className="flex min-w-0 flex-1 items-center md:min-w-36">
-                {index > 0 && <ChevronRight className="mx-1 hidden h-4 w-4 flex-none text-slate-300 md:block" aria-hidden="true" />}
-                <div className="h-full flex-1 rounded-md bg-slate-50/70 px-3 py-3 text-center md:rounded-none md:bg-slate-50/55 md:px-4 md:py-3.5">
-                  <div className="text-xs font-semibold text-slate-500">{label}</div>
-                  <div className={`mt-1 text-lg font-semibold ${tone}`}>{value}</div>
-                </div>
+            ].map(([label, value, tone]) => (
+              <div key={label} className="rounded-md bg-slate-50/70 px-3 py-2.5">
+                <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">{label}</div>
+                <div className={`mt-1 text-sm font-semibold ${tone}`}>{value}</div>
               </div>
             ))}
+            </div>
           </div>
         </div>
 
@@ -363,8 +385,8 @@ export default function OwnerHomePage() {
               <MessageCircleQuestion className="h-5 w-5" aria-hidden="true" />
             </div>
             <div>
-              <h2 className="font-serif text-lg font-semibold">Suggested questions</h2>
-              <p className="mt-1 text-sm leading-5 text-slate-400">Prompts based on this month&apos;s brief.</p>
+              <h2 className="font-serif text-lg font-semibold">Ask CFOLess</h2>
+              <p className="mt-1 text-sm leading-5 text-slate-400">Questions grounded in this month&apos;s books.</p>
             </div>
           </div>
           <div className="mt-5">
@@ -382,9 +404,9 @@ export default function OwnerHomePage() {
         </aside>
       </section>
 
-      <section className="mb-16 min-w-0">
+      <section id="explore-brief" className="mb-16 min-w-0 scroll-mt-8">
         <div className="mb-4 flex items-center gap-3 px-1">
-          <span className="text-xs font-semibold uppercase tracking-wider text-teal-700">Explore the brief</span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-teal-700">Review the evidence</span>
           <span className="h-px flex-1 bg-slate-200" />
         </div>
         <div className="no-scrollbar flex max-w-full overflow-x-auto border-b border-slate-200">
@@ -447,8 +469,6 @@ export default function OwnerHomePage() {
           </div>
         </div>
       </section>
-
-      <ActionPlan />
 
       <section className="mb-16 overflow-hidden rounded-md border border-slate-200/80 bg-white shadow-soft">
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
@@ -526,57 +546,6 @@ export default function OwnerHomePage() {
   );
 }
 
-function ActionPlan() {
-  return (
-    <section className="mb-16">
-      <div className="mb-6 px-1">
-        <div className="text-xs font-semibold uppercase tracking-wider text-teal-700">Action plan</div>
-        <h2 className="mt-2 font-serif text-3xl font-semibold text-slate-950">What we recommend reviewing next</h2>
-        <p className="mt-2 text-sm text-slate-500">Three checks before we hire or make a large purchase.</p>
-      </div>
-      <div className="overflow-hidden rounded-md border border-slate-200/80 bg-white shadow-soft lg:grid lg:grid-cols-[0.8fr_1.2fr]">
-        <div className="bg-teal-50/60 p-8 md:p-10">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full border border-teal-100 bg-white text-teal-700 shadow-sm">
-            <Gauge className="h-5 w-5" aria-hidden="true" />
-          </div>
-          <h3 className="mt-6 font-serif text-2xl font-semibold text-slate-950">What is keeping cash from reaching us?</h3>
-          <p className="mt-3 text-base font-medium leading-7 text-slate-700">Unpaid invoices, inventory timing, and payroll growth.</p>
-          <div className="mt-7 flex flex-wrap gap-2">
-            {["Unpaid invoices", "Inventory timing", "Payroll growth", "Direct job costs"].map((item) => (
-              <span
-                key={item}
-                title={item === "Unpaid invoices" ? "A/R" : item === "Direct job costs" ? "COGS" : undefined}
-                className="rounded-full border border-teal-100 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className="divide-y divide-slate-100 border-t border-slate-100 px-7 py-4 md:px-9 lg:border-l lg:border-t-0">
-          {reviewActions.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <article key={item.label} className="flex gap-4 py-6">
-                <div className="flex h-10 w-10 flex-none items-center justify-center rounded-md bg-slate-50 text-teal-700">
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h3 className="font-semibold text-slate-950">{index + 1}. {item.label}</h3>
-                    <span className="text-[10px] font-semibold uppercase tracking-wide text-teal-700">{item.status}</span>
-                  </div>
-                  <p className="mt-2 text-[15px] leading-6 text-slate-600">{item.text}</p>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function ScoreSection() {
   return (
     <section className="mb-14">
@@ -585,9 +554,9 @@ function ScoreSection() {
           const DirectionIcon = signal.movement.startsWith("up") ? ArrowUp : ArrowDown;
           const scoreBand = getScoreBand(signal.score);
           return (
-            <article key={signal.name} className="flex min-h-52 flex-col rounded-md border border-slate-200/60 bg-white px-7 py-6 shadow-[0_12px_32px_rgba(15,23,42,0.045)] transition hover:border-slate-300/80 hover:shadow-[0_16px_38px_rgba(15,23,42,0.065)]">
-              <div className="flex items-center gap-5">
-                <ScoreRing score={signal.score} size="large" />
+            <article key={signal.name} className="flex min-h-44 flex-col rounded-md border border-slate-200/60 bg-white px-6 py-5 shadow-[0_10px_28px_rgba(15,23,42,0.04)] transition hover:-translate-y-0.5 hover:border-teal-200 hover:shadow-[0_14px_34px_rgba(15,23,42,0.065)]">
+              <div className="flex items-center gap-4">
+                <ScoreRing score={signal.score} />
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <h3
@@ -612,7 +581,14 @@ function ScoreSection() {
                   </span>
                 </div>
               </div>
-              <p className="mt-6 border-t border-slate-100 pt-5 text-[15px] font-medium leading-7 text-slate-700">{signal.driver}</p>
+              <p className="mt-4 border-t border-slate-100 pt-4 text-sm font-medium leading-6 text-slate-600">{signal.driver}</p>
+              <Link
+                href={signal.name === "Cash Flow Health" ? "/score/cash-health" : "#explore-brief"}
+                className="mt-auto inline-flex items-center gap-1.5 pt-4 text-xs font-semibold text-teal-700 transition hover:text-teal-900"
+              >
+                {signal.name === "Cash Flow Health" ? "View 3 drivers" : "View drivers"}
+                <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </Link>
             </article>
           );
         })}
